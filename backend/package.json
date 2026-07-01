@@ -7,7 +7,7 @@
   "drizzle:studio": "drizzle-kit studio --config=./src/drizzle.config.ts",
 
 
-    "dev": "ts-node-dev --respawn --transpile-only ./src/main.ts",
+    "dev": "ts-node-dev --respawn --exit-child --transpile-only ./src/main.ts",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",

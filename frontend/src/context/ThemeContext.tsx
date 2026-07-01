@@ -14,8 +14,8 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     if (savedTheme) {
       return savedTheme === 'dark';
     }
-    // Use system preference as fallback
-    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    // AirSync AI defaults to the Command Center dark theme
+    return true;
   });
 
   // Update local stoEErage and document class when theme changes

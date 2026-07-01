@@ -52,11 +52,11 @@ const getDisplayType = (type: string): string => {
     vehicleType.includes("airplane") ||
     vehicleType.includes("plane")
   ) {
-    return "✈️ Airplane";
+    return "Airplane";
   } else if (vehicleType === "truck" || vehicleType.includes("helicopter")) {
-    return "🚁 Helicopter";
+    return "Helicopter";
   } else if (vehicleType === "excavator" || vehicleType.includes("drone")) {
-    return "🚁 Drone";
+    return "Drone";
   }
   return type;
 };
@@ -165,6 +165,23 @@ const VehicleMap = ({
               {getVehicle3DSVG(vehicle.type)}
             </div>
 
+            {/* Pulse ring for active vehicles - live tracking indicator */}
+            {vehicle.status === "Active" && (
+              <div
+                style={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%) rotateX(-45deg)",
+                  width: "50px",
+                  height: "50px",
+                  borderRadius: "50%",
+                  border: `2px solid ${statusColor}`,
+                  animation: "pulseRing 2s ease-out infinite",
+                  zIndex: 1,
+                }}
+              />
+            )}
             {/* Status indicator positioned directly on vehicle */}
             <div
               style={{
@@ -197,25 +214,31 @@ const VehicleMap = ({
           icon: createCustomIcon(vehicle),
         }).addTo(map);
 
-        // Add popup with vehicle info - adding dark mode compatibility for popups
+        // Add popup with vehicle info - polished mission info card
+        const statusBadgeColor = getStatusColor(vehicle.status, true);
         marker.bindPopup(`
-          <div style="min-width: 200px; color: var(--leaflet-popup-text, #333); background: var(--leaflet-popup-bg, white);">
-            <h3 style="font-weight: bold; margin-bottom: 5px;">${
-              vehicle.vehicleNumber
-            }</h3>
-            <p style="margin: 2px 0;"><strong>Speed:</strong> ${
-              vehicle.speed ? vehicle.speed : "0"
-            } km/h</p>
-            <p style="margin: 2px 0;"><strong>Altitude:</strong> ${
-              vehicle.altitude || "N/A"
-            } m</p>
-            <p style="margin: 2px 0;"><strong>Status:</strong> ${
-              vehicle.status
-            }</p>
-            <p style="margin: 2px 0;"><strong>Type:</strong> ${vehicle.type}</p>
-            <p style="margin: 2px 0;"><strong>Lat/Lng:</strong> ${
-              vehicle.lat
-            }, ${vehicle.lng}</p>
+          <div style="min-width: 220px; font-family: 'IBM Plex Sans', sans-serif;">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom: 8px;">
+              <h3 style="font-weight: 700; font-size: 14px; margin: 0;">${
+                vehicle.vehicleNumber
+              }</h3>
+              <span style="display:inline-flex; align-items:center; gap:4px; font-size: 10px; font-weight:600; padding: 2px 8px; border-radius: 4px; background: ${statusBadgeColor}22; color: ${statusBadgeColor}; border: 1px solid ${statusBadgeColor}55;">
+                <span style="width:6px; height:6px; border-radius:50%; background:${statusBadgeColor}; display:inline-block;"></span>
+                ${vehicle.status}
+              </span>
+            </div>
+            <div style="font-size: 12px; line-height: 1.6; opacity: 0.85;">
+              <div style="display:flex; justify-content:space-between;"><span>Speed</span><strong>${
+                vehicle.speed ? vehicle.speed : "0"
+              } km/h</strong></div>
+              <div style="display:flex; justify-content:space-between;"><span>Altitude</span><strong>${
+                vehicle.altitude || "N/A"
+              } m</strong></div>
+              <div style="display:flex; justify-content:space-between;"><span>Type</span><strong>${getDisplayType(vehicle.type)}</strong></div>
+              <div style="display:flex; justify-content:space-between; font-family: 'JetBrains Mono', monospace; font-size: 10px; margin-top:4px; opacity:0.7;"><span>${
+                vehicle.lat.toFixed(4)
+              }, ${vehicle.lng.toFixed(4)}</span></div>
+            </div>
           </div>
         `);
 
@@ -529,14 +552,14 @@ const VehicleMap = ({
           initial="hidden"
           animate="visible"
           exit="exit"
-          className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden h-full"
+          className="bg-white dark:bg-[#111827] rounded-xl shadow-lg border border-gray-200 dark:border-slate-800 overflow-hidden h-full"
         >
-          <div className="p-3 border-b border-gray-200 dark:border-gray-700">
+          <div className="p-3 border-b border-gray-200 dark:border-slate-800">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
               <input
                 type="text"
-                className="w-full pl-10 pr-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                className="w-full pl-10 pr-3 py-2 text-sm border border-gray-300 dark:border-slate-700 rounded-lg focus:outline-none bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                 placeholder="Search vehicles..."
                 value={filters.search}
                 onChange={(e) => onFilterChange({ search: e.target.value })}
@@ -547,7 +570,7 @@ const VehicleMap = ({
             {loading ? (
               <div className="p-4 text-center text-gray-500 dark:text-gray-400">
                 <div className="flex justify-center items-center space-x-2">
-                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-red-500"></div>
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-cyan-500"></div>
                   <span>Loading...</span>
                 </div>
               </div>
@@ -587,7 +610,7 @@ const VehicleMap = ({
                     }}
                     className={`relative p-3 cursor-pointer hover:bg-[rgba(243,244,246,1)] dark:hover:bg-[rgba(55,65,81,0.8)]  ${
                       selectedVehicle?.id === vehicle.id
-                        ? "bg-red-50 dark:bg-red-900/20"
+                        ? "bg-cyan-50 dark:bg-cyan-900/20"
                         : ""
                     }`}
                     onClick={() => {
@@ -669,7 +692,7 @@ const VehicleMap = ({
         animate={isFullscreen ? "fullscreen" : "normal"}
         variants={mapVariants}
         transition={{ duration: 0.3 }}
-        className="relative bg-gray-100 dark:bg-gray-900 rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700 h-full [--leaflet-popup-bg:white] [--leaflet-popup-text:#333] "
+        className="relative bg-gray-100 dark:bg-[#0a0f1c] rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-slate-800 h-full [--leaflet-popup-bg:white] [--leaflet-popup-text:#333] "
       >
         {/* Map Control Buttons - Fixed positioning and z-index */}
         <div className="absolute top-4 right-4 z-[1000] flex gap-2 pointer-events-auto">
@@ -677,7 +700,7 @@ const VehicleMap = ({
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={toggleFullscreen}
-            className="p-2 bg-white dark:bg-gray-800 rounded-lg shadow-md hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600"
+            className="p-2 bg-white dark:bg-[#111827] rounded-lg shadow-md hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-slate-700"
             style={{ pointerEvents: "auto" }}
           >
             {isFullscreen ? (
@@ -690,7 +713,7 @@ const VehicleMap = ({
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={toggleMapType}
-            className="p-2 bg-white dark:bg-gray-800 rounded-lg shadow-md hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600"
+            className="p-2 bg-white dark:bg-[#111827] rounded-lg shadow-md hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-slate-700"
             style={{ pointerEvents: "auto" }}
           >
             <Layers className="h-5 w-5" />
@@ -699,7 +722,7 @@ const VehicleMap = ({
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={resetMapView}
-            className="p-2 bg-white dark:bg-gray-800 rounded-lg shadow-md hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600"
+            className="p-2 bg-white dark:bg-[#111827] rounded-lg shadow-md hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-slate-700"
             style={{ pointerEvents: "auto" }}
           >
             <RotateCcw className="h-5 w-5" />
@@ -708,7 +731,7 @@ const VehicleMap = ({
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => setShowVehicleList(!showVehicleList)}
-            className="p-2 bg-white dark:bg-gray-800 rounded-lg shadow-md hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 md:hidden"
+            className="p-2 bg-white dark:bg-[#111827] rounded-lg shadow-md hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-slate-700 md:hidden"
             style={{ pointerEvents: "auto" }}
           >
             {showVehicleList ? (
@@ -722,7 +745,7 @@ const VehicleMap = ({
         {/* Add expand/collapse button for vehicle list in normal mode */}
         {!isFullscreen && (
           <button
-            className="absolute top-4 left-4 z-[1001] p-2 bg-white dark:bg-gray-800 rounded-lg shadow-md hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600"
+            className="absolute top-4 left-4 z-[1001] p-2 bg-white dark:bg-[#111827] rounded-lg shadow-md hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-slate-700"
             onClick={() => setShowVehicleList((v) => !v)}
             title={showVehicleList ? "Hide vehicle list" : "Show vehicle list"}
           >
@@ -742,7 +765,7 @@ const VehicleMap = ({
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => setShowVehicleList(!showVehicleList)}
-            className="absolute top-4 left-4 z-[1000] p-2 bg-white dark:bg-gray-800 rounded-lg shadow-md hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600"
+            className="absolute top-4 left-4 z-[1000] p-2 bg-white dark:bg-[#111827] rounded-lg shadow-md hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-slate-700"
             style={{ pointerEvents: "auto" }}
           >
             {showVehicleList ? (
@@ -758,14 +781,14 @@ const VehicleMap = ({
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
-            className="absolute top-16 left-4 z-[1000] w-80 max-h-[calc(100vh-120px)] bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden"
+            className="absolute top-16 left-4 z-[1000] w-80 max-h-[calc(100vh-120px)] bg-white dark:bg-[#111827] rounded-xl shadow-lg border border-gray-200 dark:border-slate-800 overflow-hidden"
           >
-            <div className="p-3 border-b border-gray-200 dark:border-gray-700">
+            <div className="p-3 border-b border-gray-200 dark:border-slate-800">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                 <input
                   type="text"
-                  className="w-full pl-10 pr-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none  bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                  className="w-full pl-10 pr-3 py-2 text-sm border border-gray-300 dark:border-slate-700 rounded-lg focus:outline-none  bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                   placeholder="Search vehicles..."
                   value={filters.search}
                   onChange={(e) => onFilterChange({ search: e.target.value })}
@@ -776,7 +799,7 @@ const VehicleMap = ({
               {loading ? (
                 <div className="p-4 text-center text-gray-500 dark:text-gray-400">
                   <div className="flex justify-center items-center space-x-2">
-                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-red-500"></div>
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-cyan-500"></div>
                     <span>Loading...</span>
                   </div>
                 </div>
@@ -816,7 +839,7 @@ const VehicleMap = ({
                       }}
                       className={`p-3 cursor-pointer hover:bg-[rgba(243,244,246,1)] dark:hover:bg-[rgba(55,65,81,0.8)] ${
                         selectedVehicle?.id === vehicle.id
-                          ? "bg-red-50 dark:bg-red-900/20"
+                          ? "bg-cyan-50 dark:bg-cyan-900/20"
                           : ""
                       }`}
                       onClick={() => {
@@ -886,9 +909,9 @@ const VehicleMap = ({
           style={{ minHeight: isFullscreen ? "100vh" : "400px" }}
         >
           {loading && (
-            <div className="absolute inset-0 flex items-center justify-center bg-white dark:bg-gray-900 bg-opacity-70 dark:bg-opacity-70 z-[500]">
+            <div className="absolute inset-0 flex items-center justify-center bg-white dark:bg-[#0a0f1c] bg-opacity-70 dark:bg-opacity-70 z-[500]">
               <div className="flex flex-col items-center">
-                <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-red-500"></div>
+                <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-cyan-500"></div>
                 <div className="mt-4 text-lg font-medium text-gray-700 dark:text-gray-300">
                   Loading map...
                 </div>

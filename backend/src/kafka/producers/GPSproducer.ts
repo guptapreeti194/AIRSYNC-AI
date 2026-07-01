@@ -15,7 +15,7 @@ const apiUrl = process.env.API_URL!;
 
 async function fetchAndSend() {
   if (!apiUrl) {
-    throw new Error('API_URL environment variable is not defined');
+    return;
   }
   try {
     const response = await axios.get(apiUrl);

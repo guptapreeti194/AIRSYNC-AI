@@ -192,6 +192,32 @@ export const createUser = async (body:any) => {
 export async function insertdumpdata() {
     try{
 
+        // Seed lookup tables first so role_tabs/role_report can resolve their foreign keys
+        for(const ut of utype){
+            const d=await db.select().from(usertype).where(eq(usertype.user_type, ut));
+            if(d.length===0){
+                await db.insert(usertype).values({
+                    user_type: ut
+                });
+            }
+        }
+        for(const ut of tb){
+            const d=await db.select().from(tabs).where(eq(tabs.tab_name, ut));
+            if(d.length===0){
+                await db.insert(tabs).values({
+                    tab_name: ut
+                });
+            }
+        }
+        for(const ut of rp){
+            const d=await db.select().from(report).where(eq(report.report_name, ut));
+            if(d.length===0){
+                await db.insert(report).values({
+                    report_name: ut
+                });
+            }
+        }
+
         //insert role of admin will all user
 
        await createRole({
@@ -230,33 +256,6 @@ export async function insertdumpdata() {
             ]
         });
         //create user with admin
-
-
-        for(const ut of utype){
-            const d=await db.select().from(usertype).where(eq(usertype.user_type, ut));
-            console.log(d);
-            if(d.length===0){
-                await db.insert(usertype).values({
-                    user_type: ut
-                });
-            }
-        }
-        for(const ut of tb){
-            const d=await db.select().from(tabs).where(eq(tabs.tab_name, ut));
-            if(d.length===0){
-                await db.insert(tabs).values({
-                    tab_name: ut
-                });
-            }
-        }
-        for(const ut of rp){
-            const d=await db.select().from(report).where(eq(report.report_name, ut));
-            if(d.length===0){
-                await db.insert(report).values({
-                    report_name: ut
-                });
-            }
-        }
 
         for(const vendorName of vendors){
             const existingVendor = await db.select().from(vendor).where(eq(vendor.name, vendorName));

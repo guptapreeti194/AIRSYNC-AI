@@ -35,24 +35,24 @@ const Logo: React.FC<{ size?: 'small' | 'medium' | 'large' }> = ({ size = 'mediu
 
   return (
     <div className="flex items-center">
-      <div 
-        ref={logoRef} 
-        className={`relative bg-gradient-to-br from-blue-600 to-blue-800 dark:from-blue-700 dark:to-gray-900 rounded-lg ${sizeClasses[size]} flex items-center justify-center p-1 transition-transform duration-300 ease-in-out`}
+      <div
+        ref={logoRef}
+        className={`relative bg-gradient-to-br from-cyan-500 to-slate-900 rounded-md ${sizeClasses[size]} flex items-center justify-center p-1 transition-transform duration-300 ease-in-out`}
       >
         {/* Animated ping effect */}
-        <span className="absolute w-full h-full rounded-lg bg-blue-600 dark:bg-blue-800 opacity-75 animate-ping" style={{ animationDuration: '3s' }}></span>
-        
+        <span className="absolute w-full h-full rounded-md bg-cyan-500 opacity-40 animate-ping" style={{ animationDuration: '3s' }}></span>
+
         {/* Map icon */}
         <Map className="text-white z-10" size={size === 'small' ? 16 : size === 'medium' ? 24 : 32} />
-        
+
         {/* GPS signal dots */}
-        <span className="absolute top-1 right-1 h-1.5 w-1.5 bg-green-400 dark:bg-green-500 rounded-full animate-pulse"></span>
-        <span className="absolute bottom-1 left-1 h-1.5 w-1.5 bg-green-400 dark:bg-green-500 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></span>
+        <span className="absolute top-1 right-1 h-1.5 w-1.5 bg-emerald-400 rounded-full animate-pulse"></span>
+        <span className="absolute bottom-1 left-1 h-1.5 w-1.5 bg-emerald-400 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></span>
       </div>
-      
+
       <div className={`flex flex-col ${textSizeClasses[size]}`}>
-        <span className="font-bold text-gray-800 dark:text-gray-100">UDAAN-AI</span>
-        <span className="text-xs text-gray-600 dark:text-gray-300">Unified Platform</span>
+        <span className="font-heading font-bold tracking-tight text-slate-900 dark:text-slate-50">AirSync AI</span>
+        <span className="text-xs text-slate-500 dark:text-slate-400">Fleet & Airspace Ops</span>
       </div>
     </div>
   );

@@ -42,40 +42,24 @@ const Footer: React.FC<FooterProps> = ({ version = "v2.4.1" }) => {
   ]
 
   return (
-    <footer className="bg-gradient-to-b from-gray-800 to-gray-900 border-t border-gray-700 text-gray-300 py-6 px-4">
+    <footer className="bg-slate-900 dark:bg-[#0a0f1c] border-t border-slate-800 text-slate-300 py-6 px-4" data-testid="app-footer">
       <div className="w-full max-w-[1400px] mx-auto">
         {/* Top Section */}
         <div className="flex flex-col md:flex-row md:justify-between gap-8 flex-wrap break-words w-full">
           {/* Company Info */}
           <div className="flex flex-col max-w-full md:max-w-md">
             <div className="flex items-center mb-3">
-              <div className="h-12 w-12 rounded-lg bg-[#2347d5] flex items-center justify-center text-white shadow-lg mr-3 border border-[#2347d5]">
-                <div className="flex-shrink-0 bg-white rounded-md p-1.5 shadow-md">
-                  {/* <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M10 17h4V5H2v12h3m15-5 5-5v12h-5" />
-                  <path d="M7 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
-                  <path d="M17 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
-                </svg> */}
-                  {/* <img src={Logo} alt="Logo" className="w-5 h-5" /> */}
-                  <Airplane size={24} className="text-[#2347d5]" />
+              <div className="h-12 w-12 rounded-md bg-cyan-500/10 flex items-center justify-center text-white shadow-none mr-3 border border-cyan-500/30">
+                <div className="flex-shrink-0 bg-slate-950 rounded-md p-1.5">
+                  <Airplane size={24} className="text-cyan-400" />
                 </div>
               </div>
               <div>
-                <h3 className="font-bold text-white text-xl tracking-tight">UDAAN-AI</h3>
-                <p className="text-sm text-white-300">Air Traffic Control</p>
+                <h3 className="font-heading font-bold text-white text-xl tracking-tight">AirSync AI</h3>
+                <p className="text-sm text-slate-400">Air Traffic Control</p>
               </div>
             </div>
-            <p className="text-sm text-gray-400 leading-relaxed ml-1 hidden md:block">
+            <p className="text-sm text-slate-400 leading-relaxed ml-1 hidden md:block">
               Air traffic solution for real-time aircraft monitoring and management.
             </p>
           </div>
@@ -90,10 +74,11 @@ const Footer: React.FC<FooterProps> = ({ version = "v2.4.1" }) => {
                   <Link
                     key={index}
                     to={item.path}
-                    className="flex items-center text-sm group hover:text-[#2347d5] transition-colors"
+                    data-testid={`footer-quicklink-${item.label.toLowerCase().replace(/\s+/g, '-')}`}
+                    className="flex items-center text-sm group hover:text-cyan-400 transition-colors"
                   >
-                    <div className="w-7 h-7 rounded-md bg-gray-700/50 flex items-center justify-center mr-2.5 group-hover:bg-blue-900/30 transition-colors">
-                      <item.icon size={15} className="text-gray-300 group-hover:text-[#2347d5]" />
+                    <div className="w-7 h-7 rounded-md bg-slate-800/70 border border-slate-800 flex items-center justify-center mr-2.5 group-hover:border-cyan-500/50 transition-colors">
+                      <item.icon size={15} className="text-slate-300 group-hover:text-cyan-400" />
                     </div>
                     <span>{item.label}</span>
                   </Link>
@@ -103,25 +88,26 @@ const Footer: React.FC<FooterProps> = ({ version = "v2.4.1" }) => {
         </div>
 
         {/* Bottom Bar */}
-        {/* Bottom Bar */}
-        <div className="mt-8 pt-4 border-t border-gray-700/70 flex flex-col sm:flex-row sm:justify-between gap-3 sm:gap-4 w-full text-xs sm:text-sm">
+        <div className="mt-8 pt-4 border-t border-slate-800 flex flex-col sm:flex-row sm:justify-between gap-3 sm:gap-4 w-full text-xs sm:text-sm">
           {/* Left: System Online + Build */}
           <div className="flex flex-wrap items-center gap-3 min-w-0">
-            <div className="flex items-center px-2.5 py-1 rounded-full bg-gray-700/50">
-              <div className="h-2.5 w-2.5 rounded-full bg-green-500 mr-2 animate-pulse"></div>
-              <span className="text-gray-300 whitespace-nowrap">System Online</span>
+            <div className="flex items-center px-2.5 py-1 rounded-sm bg-emerald-500/10 border border-emerald-500/20">
+              <div className="h-2 w-2 rounded-full bg-emerald-400 mr-2 animate-pulse"></div>
+              <span className="text-emerald-400 whitespace-nowrap font-mono text-xs">System Online</span>
             </div>
-            <div className="flex items-center bg-gray-700/50 px-3 py-1 rounded-full">
-              <span className="text-gray-400 mr-1.5">Build:</span>
+            <div className="flex items-center bg-slate-800/60 border border-slate-800 px-3 py-1 rounded-sm">
+              <span className="text-slate-400 mr-1.5">Build:</span>
               <span className="text-white font-mono">{version}</span>
             </div>
           </div>
 
-          {/* Right: © UDAAN-AI | Privacy | Terms */}
-          <div className="flex flex-wrap items-center gap-3 min-w-0 text-gray-400">
-            <div className="whitespace-nowrap">© {currentYear} UDAAN-AI</div>
-            <div className="hidden sm:block h-3 w-px bg-gray-600" />
-              <span>Need help?</span>
+          {/* Right: Attribution */}
+          <div className="flex flex-wrap items-center gap-3 min-w-0 text-slate-400" data-testid="footer-attribution">
+            <div className="whitespace-nowrap">© {currentYear} AirSync AI</div>
+            <div className="hidden sm:block h-3 w-px bg-slate-700" />
+            <div className="whitespace-nowrap">Made by Preeti Gupta</div>
+            <div className="hidden sm:block h-3 w-px bg-slate-700" />
+            <span>Need help?</span>
           </div>
         </div>
 

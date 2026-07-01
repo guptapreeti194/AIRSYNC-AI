@@ -40,33 +40,29 @@ const AlertSummary = () => {
       icon: Shield,
       value: alertStats.total,
       label: "Total Alerts",
-      color: "blue",
-      iconClass: "text-blue-600 dark:text-blue-400",
-      bg: "bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/40 dark:to-blue-900/40"
+      iconClass: "text-cyan-500 dark:text-cyan-400",
+      bg: "bg-cyan-500/10 border border-cyan-500/20"
     },
     {
       icon: AlertCircle,
       value: alertStats.critical,
       label: "Critical",
-      color: "red",
-      iconClass: "text-red-600 dark:text-red-400",
-      bg: "bg-gradient-to-br from-red-50 to-red-100 dark:from-red-950/40 dark:to-red-900/40"
+      iconClass: "text-red-500 dark:text-red-400",
+      bg: "bg-red-500/10 border border-red-500/20"
     },
     {
       icon: AlertTriangle,
       value: alertStats.warning,
       label: "Warning",
-      color: "yellow",
-      iconClass: "text-yellow-600 dark:text-yellow-400",
-      bg: "bg-gradient-to-br from-yellow-50 to-yellow-100 dark:from-yellow-950/40 dark:to-yellow-900/40"
+      iconClass: "text-orange-500 dark:text-orange-400",
+      bg: "bg-orange-500/10 border border-orange-500/20"
     },
     {
       icon: Info,
       value: alertStats.general,
       label: "General",
-      color: "green",
-      iconClass: "text-green-600 dark:text-green-400",
-      bg: "bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/40 dark:to-green-900/40"
+      iconClass: "text-emerald-500 dark:text-emerald-400",
+      bg: "bg-emerald-500/10 border border-emerald-500/20"
     },
   ]
 
@@ -87,21 +83,22 @@ const AlertSummary = () => {
                 stiffness: 200,
               }}
               whileHover={{
-                scale: 1.05,
+                y: -2,
                 transition: { duration: 0.2 },
               }}
+              data-testid={`alert-stat-${item.label.toLowerCase().replace(/\s+/g, '-')}`}
               className="text-center group cursor-pointer"
             >
               <div
-                className={`mx-auto w-14 h-14 rounded-2xl ${item.bg} flex items-center justify-center mb-3 group-hover:shadow-lg transition-all duration-300`}
+                className={`mx-auto w-12 h-12 rounded-md ${item.bg} flex items-center justify-center mb-3 transition-all duration-300`}
               >
                 <item.icon
-                  className={`${item.iconClass} group-hover:scale-110 transition-transform duration-300`}
-                  size={24}
+                  className={`${item.iconClass} transition-transform duration-300`}
+                  size={22}
                 />
               </div>
-              <p className="text-2xl font-bold text-gray-800 dark:text-white mb-1">{item.value}</p>
-              <p className="text-sm text-gray-600 dark:text-gray-400">{item.label}</p>
+              <p className="text-2xl font-heading font-bold text-slate-900 dark:text-white mb-1">{item.value}</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400">{item.label}</p>
             </motion.div>
           ))}
         </div>
@@ -111,26 +108,24 @@ const AlertSummary = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.7 }}
-          className="bg-gradient-to-r from-gray-50 to-red-50 dark:from-gray-900/50 dark:to-red-950/30 rounded-xl p-4"
+          className="bg-slate-50 dark:bg-slate-800/40 rounded-md p-4 border border-slate-100 dark:border-slate-800"
         >
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center space-x-2">
-              <Activity className="text-red-600 dark:text-red-400" size={18} />
-              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Critical Alert Rate</span>
+              <Activity className="text-red-500 dark:text-red-400" size={18} />
+              <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Critical Alert Rate</span>
             </div>
-            <span className="text-lg font-bold text-red-600 dark:text-red-400">{criticalRate}%</span>
+            <span className="text-lg font-heading font-bold text-red-500 dark:text-red-400">{criticalRate}%</span>
           </div>
-          <div className="w-full h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+          <div className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
             <motion.div
               initial={{ width: 0 }}
               animate={{ width: `${criticalRate}%` }}
               transition={{ duration: 1, delay: 0.9, ease: "easeOut" }}
-              className="h-full bg-gradient-to-r from-red-500 to-orange-500 rounded-full relative"
-            >
-              <div className="absolute inset-0 bg-white/30 dark:bg-gray-300/20 animate-pulse rounded-full"></div>
-            </motion.div>
+              className="h-full bg-red-500 rounded-full"
+            ></motion.div>
           </div>
-          <p className="text-xs text-gray-600 dark:text-gray-400 mt-2">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
             {alertStats.critical} critical alerts require immediate attention
           </p>
         </motion.div>

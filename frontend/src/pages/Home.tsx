@@ -18,9 +18,9 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col w-full overflow-x-hidden bg-white dark:bg-gray-900">
+    <div className="flex min-h-screen flex-col w-full overflow-x-hidden bg-white dark:bg-[#0a0f1c]">
       {/* Header */}
-      <header className="sticky top-0 z-50 w-full border-b border-gray-200 dark:border-gray-800 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md supports-[backdrop-filter]:bg-white/80 dark:supports-[backdrop-filter]:bg-gray-900/80">
+      <header className="sticky top-0 z-50 w-full border-b border-gray-200 dark:border-gray-800 bg-white/95 dark:bg-[#0a0f1c]/95 backdrop-blur-md supports-[backdrop-filter]:bg-white/80 dark:supports-[backdrop-filter]:bg-gray-900/80">
         <div className="w-full flex h-16 lg:h-20 items-center justify-between px-4 lg:px-8">
           <div className="flex items-center gap-2">
             {/* <img src={Logo} alt="Logo" className="w-full h-8" /> */}
@@ -32,13 +32,13 @@ export default function LandingPage() {
             <motion.a
               href="#features"
               onClick={scrollToSection('features')}
-              className="text-sm xl:text-base font-medium text-gray-700 dark:text-gray-300 hover:text-[#2347d5] dark:hover:text-[#6b84ff] relative group px-3 py-2 transition-colors duration-200"
+              className="text-sm xl:text-base font-medium text-gray-700 dark:text-gray-300 hover:text-cyan-600 dark:hover:text-cyan-400 relative group px-3 py-2 transition-colors duration-200"
               whileHover={{ y: -2 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
               Features
               <motion.span
-                className="absolute bottom-0 left-3 right-3 h-0.5 bg-[#2347d5] origin-left"
+                className="absolute bottom-0 left-3 right-3 h-0.5 bg-cyan-600 origin-left"
                 initial={{ scaleX: 0 }}
                 whileHover={{ scaleX: 1 }}
                 transition={{ duration: 0.2 }}
@@ -47,13 +47,13 @@ export default function LandingPage() {
             <motion.a
               href="#benefits"
               onClick={scrollToSection('benefits')}
-              className="text-sm xl:text-base font-medium text-gray-700 dark:text-gray-300 hover:text-[#2347d5] dark:hover:text-[#6b84ff] relative group px-3 py-2 transition-colors duration-200"
+              className="text-sm xl:text-base font-medium text-gray-700 dark:text-gray-300 hover:text-cyan-600 dark:hover:text-cyan-400 relative group px-3 py-2 transition-colors duration-200"
               whileHover={{ y: -2 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
               Benefits
               <motion.span
-                className="absolute bottom-0 left-3 right-3 h-0.5 bg-[#2347d5] origin-left"
+                className="absolute bottom-0 left-3 right-3 h-0.5 bg-cyan-600 origin-left"
                 initial={{ scaleX: 0 }}
                 whileHover={{ scaleX: 1 }}
                 transition={{ duration: 0.2 }}
@@ -62,13 +62,13 @@ export default function LandingPage() {
             <motion.a
               href="#how-it-works"
               onClick={scrollToSection('how-it-works')}
-              className="text-sm xl:text-base font-medium text-gray-700 dark:text-gray-300 hover:text-[#2347d5] dark:hover:text-[#6b84ff] relative group px-3 py-2 transition-colors duration-200"
+              className="text-sm xl:text-base font-medium text-gray-700 dark:text-gray-300 hover:text-cyan-600 dark:hover:text-cyan-400 relative group px-3 py-2 transition-colors duration-200"
               whileHover={{ y: -2 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
               How It Works
               <motion.span
-                className="absolute bottom-0 left-3 right-3 h-0.5 bg-[#2347d5] origin-left"
+                className="absolute bottom-0 left-3 right-3 h-0.5 bg-cyan-600 origin-left"
                 initial={{ scaleX: 0 }}
                 whileHover={{ scaleX: 1 }}
                 transition={{ duration: 0.2 }}
@@ -84,7 +84,7 @@ export default function LandingPage() {
             >
               <Button
                 onClick={() => navigate('/dashboard')}
-                className="px-4 sm:px-6 lg:px-8 py-2 lg:py-2.5 text-sm lg:text-base bg-[#2347d5] hover:bg-blue-700 text-white rounded-lg font-medium shadow-sm transition-all duration-200"
+                className="px-4 sm:px-6 lg:px-8 py-2 lg:py-2.5 text-sm lg:text-base bg-cyan-600 hover:bg-cyan-700 text-white rounded-lg font-medium shadow-sm transition-all duration-200"
               >
                 Get Started
               </Button>
@@ -106,8 +106,8 @@ export default function LandingPage() {
               >
                 <div className="space-y-3">
                   <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tight text-gray-900 dark:text-white leading-tight">
-                    UDAAN-AI Platform for{" "}
-                    <br /><span className="text-[#2347d5] dark:text-[#6b84ff]">Air Traffic & UAV Control</span>
+                    AirSync AI Platform for{" "}
+                    <br /><span className="text-cyan-600 dark:text-cyan-400">Air Traffic & UAV Control</span>
                   </h1>
                   <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
                     Innovate the future of aviation with a unified platform for tracking aircraft, drones, and UAVs. Enhance safety, efficiency, and automation in air traffic management and aerospace operations.
@@ -121,7 +121,7 @@ export default function LandingPage() {
                     <Button
                       onClick={() => navigate('/dashboard')}
                       size="lg"
-                      className="px-6 py-2.5 text-base bg-[#2347d5] hover:bg-blue-700 text-white rounded-lg font-medium shadow-lg hover:shadow-xl transition-all duration-200 w-full sm:w-auto"
+                      className="px-6 py-2.5 text-base bg-cyan-600 hover:bg-cyan-700 text-white rounded-lg font-medium shadow-lg hover:shadow-xl transition-all duration-200 w-full sm:w-auto"
                     >
                       Get Started <ArrowRight className="h-4 w-4 ml-2" />
                     </Button>
@@ -157,7 +157,7 @@ export default function LandingPage() {
         </section>
 
         {/* Features Section */}
-        <section id="features" className="w-full sm:h-200 py-12 lg:py-16 bg-white dark:bg-gray-900">
+        <section id="features" className="w-full sm:h-200 py-12 lg:py-16 bg-white dark:bg-[#0a0f1c]">
           <div className="w-full px-4 lg:px-6">
             <div className="max-w-7xl mx-auto">
               <motion.div
@@ -167,7 +167,7 @@ export default function LandingPage() {
                 transition={{ duration: 0.6 }}
                 viewport={{ once: true }}
               >
-                <div className="inline-flex items-center px-3 py-1.5 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-sm font-medium mb-4">
+                <div className="inline-flex items-center px-3 py-1.5 rounded-full bg-cyan-500/10 dark:bg-cyan-500/10 text-cyan-700 dark:text-cyan-400 text-sm font-medium mb-4">
                   <Shield className="h-3 w-3 mr-2" />
                   Key Features
                 </div>
@@ -222,8 +222,8 @@ export default function LandingPage() {
                     whileHover={{ y: -6 }}
                   >
                     <div className="flex flex-col items-center text-center space-y-3">
-                      <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center group-hover:bg-[#2347d5] transition-colors duration-300">
-                        <feature.icon className="h-6 w-6 text-[#2347d5] dark:text-[#6b84ff] group-hover:text-white transition-colors duration-300" />
+                      <div className="w-12 h-12 bg-cyan-500/10 dark:bg-cyan-500/10 rounded-xl flex items-center justify-center group-hover:bg-cyan-600 transition-colors duration-300">
+                        <feature.icon className="h-6 w-6 text-cyan-600 dark:text-cyan-400 group-hover:text-white transition-colors duration-300" />
                       </div>
                       <h3 className="text-lg font-bold text-gray-900 dark:text-white">{feature.title}</h3>
                       <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{feature.description}</p>
@@ -321,7 +321,7 @@ export default function LandingPage() {
         </section>
 
         {/* How It Works Section */}
-        <section id="how-it-works" className="w-full py-12 sm:h-150 lg:py-16 bg-white dark:bg-gray-900">
+        <section id="how-it-works" className="w-full py-12 sm:h-150 lg:py-16 bg-white dark:bg-[#0a0f1c]">
           <div className="w-full px-4 lg:px-6">
             <div className="max-w-7xl mx-auto">
               <motion.div
@@ -374,7 +374,7 @@ export default function LandingPage() {
                     whileHover={{ y: -6 }}
                   >
                     <div className="relative">
-                      <div className="w-12 h-12 bg-[#2347d5] text-white rounded-xl flex items-center justify-center text-lg font-bold shadow-lg">
+                      <div className="w-12 h-12 bg-cyan-600 text-white rounded-xl flex items-center justify-center text-lg font-bold shadow-lg">
                         {step.step}
                       </div>
                       {index < 2 && (
@@ -394,17 +394,17 @@ export default function LandingPage() {
       </main>
 
       {/* Footer */}
-      <footer className="w-full border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-800 py-6 lg:py-8 sm:py-12">
+      <footer className="w-full border-t border-gray-200 dark:border-slate-800 bg-gray-50 dark:bg-[#0a0f1c] py-6 lg:py-8 sm:py-12">
         <div className="w-full px-4 lg:px-6">
           <div className="grid gap-6 md:grid-cols-3 items-center mx-auto">
             <div className="flex items-center gap-3 justify-center md:justify-start">
-              {/* <img src={Logo1} alt="Logo" className="w-10 h-10" /> */}
-              <span className="text-lg font-bold text-gray-900 dark:text-white">UDAAN</span>
+              <span className="text-lg font-heading font-bold text-gray-900 dark:text-white">AirSync AI</span>
             </div>
 
-            <p className="text-center text-sm text-gray-600 dark:text-gray-400">
-              &copy; {new Date().getFullYear()} UDAAN Platform. All rights reserved.
-            </p>
+            <div className="text-center text-sm text-gray-600 dark:text-gray-400">
+              <p>&copy; {new Date().getFullYear()} AirSync AI. All rights reserved.</p>
+              <p className="text-xs mt-1" data-testid="landing-footer-attribution">Made by Preeti Gupta</p>
+            </div>
 
             <div className="flex gap-4 justify-center md:justify-end">
                 <span>Need help?</span>

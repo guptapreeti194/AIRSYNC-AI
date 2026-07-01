@@ -32,8 +32,8 @@ const VehicleSummary = () => {
       <DashboardCard title="Fleet Overview">
         <div className="p-4 sm:p-6">
           <div className="flex items-center justify-center py-8">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 dark:border-blue-400"></div>
-            <span className="ml-3 text-gray-600 dark:text-gray-400">Loading...</span>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-cyan-500 dark:border-cyan-400"></div>
+            <span className="ml-3 text-slate-500 dark:text-slate-400">Loading...</span>
           </div>
         </div>
       </DashboardCard>
@@ -54,37 +54,29 @@ const VehicleSummary = () => {
       icon: Airplane,
       value: vehicleStats.total,
       label: "Total Fleet",
-      color: "blue",
-      gradient: "from-blue-500 to-blue-600",
-      bg: "bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/30 dark:to-blue-800/30",
-      iconColor: "text-blue-600 dark:text-blue-400"
+      bg: "bg-cyan-500/10 border border-cyan-500/20",
+      iconColor: "text-cyan-500 dark:text-cyan-400"
     },
     {
       icon: CheckCircle,
       value: vehicleStats.active,
       label: "Active",
-      color: "green",
-      gradient: "from-green-500 to-green-600",
-      bg: "bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/30 dark:to-green-800/30",
-      iconColor: "text-green-600 dark:text-green-400"
+      bg: "bg-emerald-500/10 border border-emerald-500/20",
+      iconColor: "text-emerald-500 dark:text-emerald-400"
     },
     {
       icon: Clock,
       value: vehicleStats.noUpdate,
       label: "No Update",
-      color: "yellow",
-      gradient: "from-yellow-500 to-yellow-600",
-      bg: "bg-gradient-to-br from-yellow-50 to-yellow-100 dark:from-yellow-900/30 dark:to-yellow-800/30",
-      iconColor: "text-yellow-600 dark:text-yellow-400"
+      bg: "bg-orange-500/10 border border-orange-500/20",
+      iconColor: "text-orange-500 dark:text-orange-400"
     },
     {
       icon: XCircle,
       value: vehicleStats.noData,
       label: "No Data",
-      color: "red",
-      gradient: "from-red-500 to-red-600",
-      bg: "bg-gradient-to-br from-red-50 to-red-100 dark:from-red-900/30 dark:to-red-800/30",
-      iconColor: "text-red-600 dark:text-red-400"
+      bg: "bg-red-500/10 border border-red-500/20",
+      iconColor: "text-red-500 dark:text-red-400"
     },
   ]
 
@@ -96,40 +88,39 @@ const VehicleSummary = () => {
           {statItems.map((item) => (
             <div
               key={item.label}
-              className="text-center group cursor-pointer hover:scale-105 transition-transform duration-200"
+              data-testid={`fleet-stat-${item.label.toLowerCase().replace(/\s+/g, '-')}`}
+              className="text-center group cursor-pointer hover:-translate-y-0.5 transition-transform duration-200"
             >
               <div
-                className={`mx-auto w-14 h-14 rounded-2xl ${item.bg} flex items-center justify-center mb-3 group-hover:shadow-lg transition-all duration-300`}
+                className={`mx-auto w-12 h-12 rounded-md ${item.bg} flex items-center justify-center mb-3 transition-all duration-300`}
               >
                 <item.icon
-                  className={`${item.iconColor} group-hover:scale-110 transition-transform duration-300`}
-                  size={24}
+                  className={`${item.iconColor} transition-transform duration-300`}
+                  size={22}
                 />
               </div>
-              <p className="text-2xl font-bold text-gray-800 dark:text-white mb-1">{item.value}</p>
-              <p className="text-sm text-gray-600 dark:text-gray-400">{item.label}</p>
+              <p className="text-2xl font-heading font-bold text-slate-900 dark:text-white mb-1">{item.value}</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400">{item.label}</p>
             </div>
           ))}
         </div>
 
         {/* Utilization Rate */}
-        <div className="bg-gradient-to-r from-gray-50 to-blue-50 dark:from-gray-800/50 dark:to-blue-900/20 rounded-xl p-4">
+        <div className="bg-slate-50 dark:bg-slate-800/40 rounded-md p-4 border border-slate-100 dark:border-slate-800">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center space-x-2">
-              <TrendingUp className="text-blue-600 dark:text-blue-400" size={18} />
-              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Fleet Utilization</span>
+              <TrendingUp className="text-cyan-500 dark:text-cyan-400" size={18} />
+              <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Fleet Utilization</span>
             </div>
-            <span className="text-lg font-bold text-blue-600 dark:text-blue-400">{utilizationRate}%</span>
+            <span className="text-lg font-heading font-bold text-cyan-600 dark:text-cyan-400">{utilizationRate}%</span>
           </div>
-          <div className="w-full h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+          <div className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
             <div
               style={{ width: `${utilizationRate}%` }}
-              className="h-full bg-gradient-to-r from-blue-500 to-green-500 rounded-full relative transition-all duration-1000 ease-out"
-            >
-              <div className="absolute inset-0 bg-white/30 dark:bg-white/20 animate-pulse rounded-full"></div>
-            </div>
+              className="h-full bg-cyan-500 rounded-full transition-all duration-1000 ease-out"
+            ></div>
           </div>
-          <p className="text-xs text-gray-600 dark:text-gray-400 mt-2">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
             {vehicleStats.active} of {vehicleStats.total} vehicles currently active
           </p>
         </div>

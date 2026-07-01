@@ -210,37 +210,29 @@ const PerformanceMetrics = () => {
       icon: Activity,
       value: `${fleetUtilization}%`,
       label: "Fleet Utilization",
-      lightBg: "bg-gradient-to-br from-green-50 to-green-100",
-      darkBg: "dark:bg-gradient-to-br dark:from-green-900/20 dark:to-green-800/20",
-      lightIcon: "text-green-600",
-      darkIcon: "dark:text-green-400"
+      bg: "bg-emerald-500/10 border border-emerald-500/20",
+      iconClass: "text-emerald-500 dark:text-emerald-400"
     },
     {
       icon: Zap,
       value: `${Number(Math.round(avgSpeed))}`,
       label: "Avg Speed (km/h)",
-      lightBg: "bg-gradient-to-br from-blue-50 to-blue-100",
-      darkBg: "dark:bg-gradient-to-br dark:from-blue-900/20 dark:to-blue-800/20",
-      lightIcon: "text-blue-600",
-      darkIcon: "dark:text-blue-400"
+      bg: "bg-cyan-500/10 border border-cyan-500/20",
+      iconClass: "text-cyan-500 dark:text-cyan-400"
     },
     {
       icon: Target,
       value: `${efficiencyScore}%`,
       label: "Efficiency Score",
-      lightBg: "bg-gradient-to-br from-purple-50 to-purple-100",
-      darkBg: "dark:bg-gradient-to-br dark:from-purple-900/20 dark:to-purple-800/20",
-      lightIcon: "text-purple-600",
-      darkIcon: "dark:text-purple-400"
+      bg: "bg-slate-500/10 border border-slate-500/20",
+      iconClass: "text-slate-500 dark:text-slate-400"
     },
     {
       icon: Clock,
       value: `${activeTripsPercent}%`,
       label: "On Trip",
-      lightBg: "bg-gradient-to-br from-orange-50 to-orange-100",
-      darkBg: "dark:bg-gradient-to-br dark:from-orange-900/20 dark:to-orange-800/20",
-      lightIcon: "text-orange-600",
-      darkIcon: "dark:text-orange-400"
+      bg: "bg-orange-500/10 border border-orange-500/20",
+      iconClass: "text-orange-500 dark:text-orange-400"
     },
   ]
 
@@ -252,45 +244,46 @@ const PerformanceMetrics = () => {
           {metrics.map((metric) => (
             <div
               key={metric.label}
+              data-testid={`performance-metric-${metric.label.toLowerCase().replace(/\s+/g, '-')}`}
               className="text-center group cursor-pointer"
             >
               <div
-                className={`mx-auto w-14 h-14 rounded-2xl ${metric.lightBg} ${metric.darkBg} flex items-center justify-center mb-3 group-hover:shadow-lg transition-all duration-300`}
+                className={`mx-auto w-12 h-12 rounded-md ${metric.bg} flex items-center justify-center mb-3 transition-all duration-300`}
               >
                 <metric.icon
-                  className={`${metric.lightIcon} ${metric.darkIcon} group-hover:scale-110 transition-transform duration-300`}
-                  size={24}
+                  className={`${metric.iconClass} transition-transform duration-300`}
+                  size={22}
                 />
               </div>
-              <p className="text-2xl font-bold text-gray-800 dark:text-white mb-1">{metric.value}</p>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">{metric.label}</p>
+              <p className="text-2xl font-heading font-bold text-slate-900 dark:text-white mb-1">{metric.value}</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400 mb-1">{metric.label}</p>
             </div>
           ))}
         </div>
 
         <div
-          className={`bg-gradient-to-r ${performanceRating.lightBg} ${performanceRating.darkBg} rounded-xl p-4 border border-gray-100 dark:border-gray-700/50`}
+          className="bg-slate-50 dark:bg-slate-800/40 rounded-md p-4 border border-slate-100 dark:border-slate-800"
         >
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center space-x-2">
               <Target 
-                className={`${performanceRating.lightIcon} ${performanceRating.darkIcon}`} 
+                className="text-cyan-500 dark:text-cyan-400"
                 size={18} 
               />
-              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+              <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
                 Overall Performance
               </span>
             </div>
-            <span className={`text-lg font-bold ${performanceRating.lightText} ${performanceRating.darkText}`}>
+            <span className="text-lg font-heading font-bold text-cyan-600 dark:text-cyan-400">
               {performanceRating.rating}
             </span>
           </div>
-          <div className="grid grid-cols-2 gap-4 text-xs text-gray-600 dark:text-gray-400">
+          <div className="grid grid-cols-2 gap-4 text-xs text-slate-500 dark:text-slate-400">
             <div>
-              <span className="font-medium text-gray-700 dark:text-gray-300">Fleet Status:</span> {activeVehicles}/{totalVehicles} active ({fleetUtilization}%)
+              <span className="font-medium text-slate-700 dark:text-slate-300">Fleet Status:</span> {activeVehicles}/{totalVehicles} active ({fleetUtilization}%)
             </div>
             <div>
-              <span className="font-medium text-gray-700 dark:text-gray-300">Alert:</span> {criticalAlerts} critical alerts ({alertRate}%)
+              <span className="font-medium text-slate-700 dark:text-slate-300">Alert:</span> {criticalAlerts} critical alerts ({alertRate}%)
             </div>
           </div>
         </div>

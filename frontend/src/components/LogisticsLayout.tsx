@@ -109,7 +109,7 @@ const LogisticsLayout: React.FC<LayoutProps> = ({ children }) => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-[#0a0f1c]">
       {loading && <Loader />}
       <Navbar toggleSidebar={toggleSidebar} />
       <div className="flex flex-1 h-screen overflow-hidden">

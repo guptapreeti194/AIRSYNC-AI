@@ -257,7 +257,7 @@ const LogisticsSidebar: React.FC<LogisticsSidebarProps> = ({ isOpen, closeSideba
             isExpanded
             ? "w-64"
             : "w-16",
-        "bg-gray-800 dark:bg-gray-900 mt-14 dark:border-r-2", // Use mt-14 (margin-top) to match navbar height instead of pt-16 (padding-top)
+        "bg-slate-900 dark:bg-[#0a0f1c] mt-14 border-r border-slate-800", // Use mt-14 (margin-top) to match navbar height instead of pt-16 (padding-top)
       )}
       style={{ height: "calc(100vh - 3.5rem)" }} // Use calc to subtract navbar height (3.5rem = 14 / 4)
       onMouseEnter={() => !isMobile && setIsExpanded(true)}
@@ -281,30 +281,28 @@ const LogisticsSidebar: React.FC<LogisticsSidebarProps> = ({ isOpen, closeSideba
       )}
 
       {/* Logistics Panel Header */}
-      <div className="px-3 py-4 border-b border-gray-700">
+      <div className="px-3 py-4 border-b border-slate-800" data-testid="sidebar-header">
         <div
           className={cn(
             "transition-all duration-300 overflow-hidden",
             isExpanded || (isMobile && isOpen)
-              ? "bg-gradient-to-r from-[#2347d5] to-blue-800 rounded-lg shadow-lg p-3"
-              : "bg-blue-700 rounded-md p-2 flex justify-center",
+              ? "bg-cyan-500/10 border border-cyan-500/30 rounded-md p-3"
+              : "bg-cyan-500/10 border border-cyan-500/30 rounded-md p-2 flex justify-center",
           )}
         >
           {isExpanded || (isMobile && isOpen) ? (
             <div className="flex items-center">
-              <div className="flex-shrink-0 bg-white rounded-md p-1.5 shadow-md">
-                <Airplane size={24} className="text-[#2347d5]" />
-                {/* <img src={Logo} alt="Logo" className="w-8 h-8" /> */}
+              <div className="flex-shrink-0 bg-slate-950 rounded-md p-1.5">
+                <Airplane size={24} className="text-cyan-400" />
               </div>
               <div className="ml-3">
-                <h2 className="text-white font-bold text-lg leading-tight">UDAAN-AI</h2>
-                <p className="text-blue-100 text-xs">Air Traffic Control</p>
+                <h2 className="text-white font-heading font-bold text-lg leading-tight">AirSync AI</h2>
+                <p className="text-slate-400 text-xs">Air Traffic Control</p>
               </div>
             </div>
           ) : (
-            <div className="flex-shrink-0 bg-white rounded-md p-1 shadow-md">
-              <Airplane size={16} className="text-[#2347d5]" />
-              {/* <img src={Logo} alt="Logo" className="w-4 h-4" /> */}
+            <div className="flex-shrink-0 bg-slate-950 rounded-md p-1">
+              <Airplane size={16} className="text-cyan-400" />
             </div>
           )}
         </div>
@@ -329,16 +327,17 @@ const LogisticsSidebar: React.FC<LogisticsSidebarProps> = ({ isOpen, closeSideba
                 >
                   <CollapsibleTrigger asChild>
                     <div
+                      data-testid={`sidebar-nav-${item.label.toLowerCase().replace(/\s+/g, '-')}`}
                       className={cn(
-                        "flex items-center py-2.5 px-3 rounded-md text-white transition-colors duration-200 cursor-pointer",
-                        isItemActive ? "bg-blue-600/20 text-white font-medium" : "hover:bg-gray-700 hover:text-white",
+                        "flex items-center py-2.5 px-3 rounded-sm text-slate-200 transition-colors duration-200 cursor-pointer",
+                        isItemActive ? "bg-cyan-500/10 text-cyan-400 font-medium border border-cyan-500/20" : "hover:bg-slate-800 hover:text-white border border-transparent",
                         "focus:outline-none w-full",
                       )}
                     >
                       <div
                         className={cn(
-                          "flex items-center justify-center w-6 h-6 rounded-md",
-                          isItemActive ? "text-[#2347d5]" : "text-white",
+                          "flex items-center justify-center w-6 h-6 rounded-sm",
+                          isItemActive ? "text-cyan-400" : "text-slate-300",
                         )}
                       >
                         <item.icon size={18} />
@@ -363,11 +362,12 @@ const LogisticsSidebar: React.FC<LogisticsSidebarProps> = ({ isOpen, closeSideba
                         <Link
                           key={childIndex}
                           to={child.path}
+                          data-testid={`sidebar-subnav-${child.label.toLowerCase().replace(/\s+/g, '-')}`}
                           className={cn(
-                            "flex items-center py-2 px-3 rounded-md text-sm transition-colors duration-200",
+                            "flex items-center py-2 px-3 rounded-sm text-sm transition-colors duration-200",
                             isChildActive
-                              ? "bg-blue-600/30 text-white font-medium"
-                              : "text-white hover:bg-gray-700 hover:text-white",
+                              ? "bg-cyan-500/10 text-cyan-400 font-medium"
+                              : "text-slate-300 hover:bg-slate-800 hover:text-white",
                             "focus:outline-none w-full",
                           )}
                           onClick={() => isMobile && closeSidebar()}
@@ -388,19 +388,20 @@ const LogisticsSidebar: React.FC<LogisticsSidebarProps> = ({ isOpen, closeSideba
               ) : (
                 <Link
                   to={item.path}
+                  data-testid={`sidebar-nav-${item.label.toLowerCase().replace(/\s+/g, '-')}`}
                   className={cn(
-                    "flex items-center py-2.5 px-3 rounded-md text-white transition-colors duration-200",
+                    "flex items-center py-2.5 px-3 rounded-sm text-slate-200 transition-colors duration-200 border border-transparent",
                     isActive(item.path)
-                      ? "bg-blue-600/20 text-white font-medium"
-                      : "hover:bg-gray-700 hover:text-white",
+                      ? "bg-cyan-500/10 text-cyan-400 font-medium border-cyan-500/20"
+                      : "hover:bg-slate-800 hover:text-white",
                     "focus:outline-none w-full",
                   )}
                   onClick={() => isMobile && closeSidebar()}
                 >
                   <div
                     className={cn(
-                      "flex items-center justify-center w-6 h-6 rounded-md",
-                      isActive(item.path) ? "text-[#2347d5]" : "text-white",
+                      "flex items-center justify-center w-6 h-6 rounded-sm",
+                      isActive(item.path) ? "text-cyan-400" : "text-slate-300",
                     )}
                   >
                     <item.icon size={18} />
@@ -420,14 +421,15 @@ const LogisticsSidebar: React.FC<LogisticsSidebarProps> = ({ isOpen, closeSideba
         })}
       </div>
 
-      <div className="border-t border-gray-700 p-3">
+      <div className="border-t border-slate-800 p-3">
         <div
+          data-testid="sidebar-user-summary"
           className={cn(
-            "flex items-center rounded-2xl p-2 bg-gray-700/50 hover:bg-gray-700 transition-all duration-200",
+            "flex items-center rounded-sm p-2 bg-slate-800/50 border border-slate-800 hover:border-cyan-500/30 transition-all duration-200",
             isExpanded || (isMobile && isOpen) ? "justify-between" : "justify-center",
           )}
         >
-          <div className="h-8 w-8 text-xs rounded-2xl bg-gradient-to-r from-[#2347d5] to-blue-700 flex items-center justify-center text-white shadow-md">
+          <div className="h-8 w-8 text-xs rounded-sm bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 font-mono">
             {user.username.substring(0, 2).toUpperCase()}
           </div>
           <div
@@ -437,13 +439,8 @@ const LogisticsSidebar: React.FC<LogisticsSidebarProps> = ({ isOpen, closeSideba
             )}
           >
             <p className="text-white text-sm font-medium truncate">{user.name}</p>
-            <p className="text-gray-400 text-xs truncate">{user.roles}</p>
+            <p className="text-slate-400 text-xs truncate">{user.roles}</p>
           </div>
-          {/* {(isExpanded || (isMobile && isOpen)) && (
-            <button className="text-gray-400 hover:text-white p-1 rounded-md hover:bg-gray-600/50">
-              <ChevronDown size={16} />
-            </button>
-          )} */}
         </div>
       </div>
     </div>
