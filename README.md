@@ -59,14 +59,14 @@ bin/kafka-server-start.sh config/kraft/server.properties
 ### Start MySQL and create the database
 
 ```sql
-CREATE DATABASE udaan_ai;
-CREATE USER 'udaan_user'@'localhost' IDENTIFIED BY 'your_password';
-GRANT ALL PRIVILEGES ON udaan_ai.* TO 'udaan_user'@'localhost';
+CREATE DATABASE airsync_ai;
+CREATE USER 'airsync_user'@'localhost' IDENTIFIED BY 'your_password';
+GRANT ALL PRIVILEGES ON airsync_ai.* TO 'airsync_user'@'localhost';
 ```
 
 Apply the schema:
 ```bash
-mysql -u udaan_user -p udaan_ai < drizzle/0000_black_violations.sql
+mysql -u airsync_user -p airsync_ai < drizzle/0000_black_violations.sql
 ```
 
 > Note: this schema has very wide tables. If you hit a `Row size too large` error, start MySQL with `--innodb-strict-mode=0`.
@@ -79,9 +79,9 @@ PORT=8002
 DATABASE_URL="mysql://udaan_user:your_password@localhost:3306/udaan_ai"
 DB_HOST=localhost
 DB_PORT=3306
-DB_USER=udaan_user
+DB_USER=airsync_user
 DB_PASSWORD=your_password
-DB_NAME=udaan_ai
+DB_NAME=airsync_ai
 
 JWT_SECRET="replace_with_a_long_random_string"
 
